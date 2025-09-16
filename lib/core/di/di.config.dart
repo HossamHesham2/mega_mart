@@ -35,6 +35,13 @@ import '../../features/auth/sign_up/domain/usecases/sign_up_use_case.dart'
     as _i365;
 import '../../features/auth/sign_up/presentation/bloc/sign_up_bloc.dart'
     as _i130;
+import '../../features/cart/data/data_source/cart_remote_ds.dart' as _i1012;
+import '../../features/cart/data/repository/cart_repository_impl.dart'
+    as _i1063;
+import '../../features/cart/domain/repository/cart_repository.dart' as _i26;
+import '../../features/cart/domain/usecase/add_to_cart_use_cas.dart' as _i457;
+import '../../features/cart/domain/usecase/get_cart_use_cas.dart' as _i662;
+import '../../features/cart/presentation/bloc/cart_bloc.dart' as _i517;
 import '../../features/main_layout/categories/data/data_source/categories_remote_ds.dart'
     as _i410;
 import '../../features/main_layout/categories/data/repository/categories_repository_impl.dart'
@@ -73,6 +80,8 @@ import '../../features/products_screen/data/repository/product_repository_impl.d
     as _i99;
 import '../../features/products_screen/domain/repository/product_repository.dart'
     as _i744;
+import '../../features/products_screen/domain/usecases/add_to_cart_use_cas.dart'
+    as _i531;
 import '../../features/products_screen/domain/usecases/get_product_use_case.dart'
     as _i630;
 import '../../features/products_screen/presentation/bloc/product_bloc.dart'
@@ -93,7 +102,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i744.ProductRepository>(
       () => _i99.ProductRepositoryImpl(gh<_i530.ProductRemoteDs>()),
     );
+    gh.factory<_i1012.CartRemoteDs>(() => _i1012.CartRemoteDsImpl());
     gh.factory<_i342.LoginRemoteDS>(() => _i797.LoginRemoteDSImpl());
+    gh.factory<_i26.CartRepository>(
+      () => _i1063.CartRepositoryImpl(gh<_i1012.CartRemoteDs>()),
+    );
     gh.factory<_i177.SignUpRemoteDs>(() => _i708.SignUpRemoteDsImpl());
     gh.factory<_i944.HomeRemoteDs>(() => _i944.HomeRemoteDsImpl());
     gh.factory<_i367.ProductDetailsRemoteDs>(
@@ -103,14 +116,32 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i556.HomeRepository>(
       () => _i70.HomeRepositoryImpl(gh<_i944.HomeRemoteDs>()),
     );
+    gh.factory<_i457.AddToCartUseCas>(
+      () => _i457.AddToCartUseCas(gh<_i26.CartRepository>()),
+    );
+    gh.factory<_i662.GetCartUseCas>(
+      () => _i662.GetCartUseCas(gh<_i26.CartRepository>()),
+    );
     gh.factory<_i630.GetProductUseCase>(
       () => _i630.GetProductUseCase(gh<_i744.ProductRepository>()),
+    );
+    gh.factory<_i531.AddToCartUseCas>(
+      () => _i531.AddToCartUseCas(gh<_i744.ProductRepository>()),
     );
     gh.factory<_i988.SignUpRepository>(
       () => _i120.SignUpRepositoryImpl(gh<_i177.SignUpRemoteDs>()),
     );
+    gh.factory<_i517.CartBloc>(
+      () => _i517.CartBloc(
+        gh<_i457.AddToCartUseCas>(),
+        gh<_i662.GetCartUseCas>(),
+      ),
+    );
     gh.factory<_i923.ProductBloc>(
-      () => _i923.ProductBloc(gh<_i630.GetProductUseCase>()),
+      () => _i923.ProductBloc(
+        gh<_i630.GetProductUseCase>(),
+        gh<_i531.AddToCartUseCas>(),
+      ),
     );
     gh.factory<_i354.LoginRepository>(
       () => _i918.LoginRepositoryImpl(gh<_i342.LoginRemoteDS>()),

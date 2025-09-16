@@ -3,7 +3,9 @@ import 'package:ecommerce_c15_str/core/resources/color_manager.dart';
 import 'package:ecommerce_c15_str/core/resources/styles_manager.dart';
 import 'package:ecommerce_c15_str/core/routes_manager/routes.dart';
 import 'package:ecommerce_c15_str/core/widget/heart_button.dart';
+import 'package:ecommerce_c15_str/features/products_screen/presentation/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProductWidget extends StatelessWidget {
@@ -50,13 +52,12 @@ class CustomProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
         Routes.productDetails,
-        arguments: {
-          "id": id,
-        },
+        arguments: {"id": id},
       ),
       child: Container(
         width: width * 0.4,
@@ -169,7 +170,11 @@ class CustomProductWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              BlocProvider.of<ProductBloc>(
+                                context,
+                              ).add(AddToCartEvent(id: id));
+                            },
                             child: Container(
                               height: height * 0.036,
                               width: width * 0.08,

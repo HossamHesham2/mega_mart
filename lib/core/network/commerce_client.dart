@@ -3,6 +3,9 @@ import 'package:ecommerce_c15_str/features/auth/login/data/models/login_response
 import 'package:ecommerce_c15_str/features/auth/login/data/models/login_request.dart';
 import 'package:ecommerce_c15_str/features/auth/sign_up/data/models/sign_up_request.dart';
 import 'package:ecommerce_c15_str/features/auth/sign_up/data/models/sign_up_response_model.dart';
+import 'package:ecommerce_c15_str/features/cart/data/model/cart_request.dart';
+import 'package:ecommerce_c15_str/features/cart/data/model/cart_response_model.dart';
+import 'package:ecommerce_c15_str/features/cart/data/model/get_cart_response_model.dart';
 import 'package:ecommerce_c15_str/features/main_layout/categories/data/models/sub_categories_response_model.dart';
 import 'package:ecommerce_c15_str/features/main_layout/home/data/model/brands_response_model.dart';
 import 'package:ecommerce_c15_str/features/main_layout/home/data/model/categories_response_model.dart';
@@ -36,10 +39,21 @@ abstract class CommerceClient {
   Future<ProductResponseModel> getProducts();
 
   @GET('products/{id}')
-  Future<ProductDetailsWrapper> getProductsDetails(@Path('id') String productId);
+  Future<ProductDetailsWrapper> getProductsDetails(
+    @Path('id') String productId,
+  );
 
   @GET('brands')
   Future<BrandsResponseModel> getAllBrands();
+
+  @POST('cart')
+  Future<CartResponseModel> addToCart(
+    @Body() CartRequest request,
+    @Header('token') String token,
+  );
+
+  @GET('cart')
+  Future<GetCartResponseModel> getCart(@Header('token') String token);
 }
 
 @module
