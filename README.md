@@ -30,7 +30,6 @@
   <ul>
     <li>Flutter</li>
     <li>REST APIs</li>
-    <li>(Add any extra libraries/tools here)</li>
   </ul>
 
   <h2>🚀 Getting Started</h2>
