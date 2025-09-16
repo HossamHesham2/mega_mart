@@ -6,7 +6,7 @@
 </head>
 <body>
 
-  <h1>🚀 MegaMart</h1>
+  <h1>🚀 Mega *__^ Mart</h1>
   <p><strong>A modern, scalable e-commerce app built with Flutter</strong></p>
   <p>MegaMart provides a smooth online shopping experience with real-time product data, easy checkout, and admin management features.</p>
 
