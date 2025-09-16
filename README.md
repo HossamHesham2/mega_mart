@@ -1,16 +1,47 @@
-# ecommerce_c15_str
+MegaMart
 
-A new Flutter project.
+MegaMart is a modern e-commerce platform built with Clean Architecture and MVVC pattern, designed for a smooth and scalable online shopping experience. It connects to APIs to fetch real-time product data, handle user actions, and manage orders efficiently.
 
-## Getting Started
+Features
 
-This project is a starting point for a Flutter application.
+Browse and search products seamlessly via APIs
 
-A few resources to get you started if this is your first Flutter project:
+Shopping cart and checkout system
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Product categorization
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Admin functionalities for managing products and orders
+
+Responsive UI and scalable architecture
+
+Architecture
+
+Clean Architecture for maintainable and testable code
+
+MVVC pattern for clear separation of UI and business logic
+
+API-driven data flow for dynamic content
+
+Technologies Used
+
+Flutter / specify your stack
+
+REST APIs for backend communication
+
+Getting Started
+
+Clone the repository
+
+git clone https://github.com/HossamHesham2/mega_mart.git
+
+
+Open the project in your IDE
+
+Configure API endpoints and database connection
+
+Run the application
+
+Contributing
+
+Contributions are welcome! Fork the repo and submit pull requests.
+
