@@ -4,53 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MegaMart</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: #f9f9f9;
-      color: #333;
-      padding: 20px;
-    }
-    h1, h2 {
-      color: #2c3e50;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
-    }
-    h2 {
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-    }
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    li {
-      margin-bottom: 0.5em;
-      padding-left: 1.2em;
-      position: relative;
-    }
-    li::before {
-      content: "•";
-      color: #e74c3c;
-      position: absolute;
-      left: 0;
-    }
-    code {
-      background-color: #eee;
-      padding: 2px 5px;
-      border-radius: 3px;
-      font-family: monospace;
-    }
-    pre {
-      background-color: #eee;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-  </style>
+  
 </head>
 <body>
 
