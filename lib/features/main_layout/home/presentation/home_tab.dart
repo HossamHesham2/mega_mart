@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecommerce_c15_str/core/constant/constant_key.dart';
 import 'package:ecommerce_c15_str/core/di/di.dart';
 import 'package:ecommerce_c15_str/core/resources/assets_manager.dart';
 import 'package:ecommerce_c15_str/core/widget/product_card.dart';
@@ -8,6 +9,7 @@ import 'package:ecommerce_c15_str/features/main_layout/home/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'widgets/custom_ads_widget.dart';
 import 'widgets/custom_section_bar.dart';
@@ -33,6 +35,12 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     _startImageSwitching();
+    _printToken();
+  }
+
+  Future<void> _printToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    print("Token --> ${prefs.getString(ConstantKey.tokenKey)}");
   }
 
   void _startImageSwitching() {

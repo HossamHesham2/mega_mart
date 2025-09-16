@@ -5,10 +5,17 @@ class ProductState extends Equatable {
   final ProductResponseModel? productResponseModel;
   final Failures? productFailures;
 
+  final RequestState? addToCartRequestState;
+  final Failures? addToCartFailures;
+  final CartResponseEntity? addToCartResponseEntity;
+
   const ProductState({
     this.productRequestState,
     this.productResponseModel,
     this.productFailures,
+    this.addToCartRequestState,
+    this.addToCartResponseEntity,
+    this.addToCartFailures,
   });
 
   // initial state
@@ -17,6 +24,9 @@ class ProductState extends Equatable {
       productRequestState: RequestState.loading,
       productResponseModel: null,
       productFailures: null,
+      addToCartRequestState: RequestState.loading,
+      addToCartResponseEntity: null,
+      addToCartFailures: null,
     );
   }
 
@@ -24,11 +34,18 @@ class ProductState extends Equatable {
     RequestState? productRequestState,
     ProductResponseModel? productResponseModel,
     Failures? productFailures,
+    RequestState? cartRequestState,
+    Failures? cartFailures,
+    CartResponseEntity? cartResponseEntity,
   }) {
     return ProductState(
       productRequestState: productRequestState ?? this.productRequestState,
       productResponseModel: productResponseModel ?? this.productResponseModel,
       productFailures: productFailures ?? this.productFailures,
+      addToCartRequestState: cartRequestState ?? addToCartRequestState,
+      addToCartFailures: cartFailures ?? addToCartFailures,
+      addToCartResponseEntity:
+          cartResponseEntity ?? addToCartResponseEntity,
     );
   }
 
@@ -37,6 +54,9 @@ class ProductState extends Equatable {
     productRequestState,
     productResponseModel,
     productFailures,
+    addToCartRequestState,
+    addToCartResponseEntity,
+    addToCartFailures,
   ];
 }
 

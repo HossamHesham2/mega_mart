@@ -8,3 +8,12 @@ class GetProductEvent extends ProductEvent {
   @override
   List<Object?> get props => [];
 }
+
+class AddToCartEvent extends ProductEvent {
+  final String id;
+
+  const AddToCartEvent({required this.id});
+
+  @override
+  List<Object?> get props => [];
+}
