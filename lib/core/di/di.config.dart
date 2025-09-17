@@ -40,6 +40,7 @@ import '../../features/cart/data/repository/cart_repository_impl.dart'
     as _i1063;
 import '../../features/cart/domain/repository/cart_repository.dart' as _i26;
 import '../../features/cart/domain/usecase/add_to_cart_use_cas.dart' as _i457;
+import '../../features/cart/domain/usecase/delete_cart_use_case.dart' as _i31;
 import '../../features/cart/domain/usecase/get_cart_use_cas.dart' as _i662;
 import '../../features/cart/presentation/bloc/cart_bloc.dart' as _i517;
 import '../../features/main_layout/categories/data/data_source/categories_remote_ds.dart'
@@ -122,20 +123,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i662.GetCartUseCas>(
       () => _i662.GetCartUseCas(gh<_i26.CartRepository>()),
     );
-    gh.factory<_i630.GetProductUseCase>(
-      () => _i630.GetProductUseCase(gh<_i744.ProductRepository>()),
+    gh.factory<_i31.DeleteCartUseCase>(
+      () => _i31.DeleteCartUseCase(gh<_i26.CartRepository>()),
     );
     gh.factory<_i531.AddToCartUseCas>(
       () => _i531.AddToCartUseCas(gh<_i744.ProductRepository>()),
     );
+    gh.factory<_i630.GetProductUseCase>(
+      () => _i630.GetProductUseCase(gh<_i744.ProductRepository>()),
+    );
     gh.factory<_i988.SignUpRepository>(
       () => _i120.SignUpRepositoryImpl(gh<_i177.SignUpRemoteDs>()),
-    );
-    gh.factory<_i517.CartBloc>(
-      () => _i517.CartBloc(
-        gh<_i457.AddToCartUseCas>(),
-        gh<_i662.GetCartUseCas>(),
-      ),
     );
     gh.factory<_i923.ProductBloc>(
       () => _i923.ProductBloc(
@@ -152,6 +150,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i130.SignUpBloc>(
       () => _i130.SignUpBloc(gh<_i365.SignUpUseCase>()),
     );
+    gh.factory<_i517.CartBloc>(
+      () => _i517.CartBloc(
+        gh<_i457.AddToCartUseCas>(),
+        gh<_i662.GetCartUseCas>(),
+        gh<_i31.DeleteCartUseCase>(),
+      ),
+    );
     gh.factory<_i401.LoginUseCase>(
       () => _i401.LoginUseCase(gh<_i354.LoginRepository>()),
     );
@@ -163,11 +168,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i367.ProductDetailsRemoteDs>(),
       ),
     );
-    gh.factory<_i791.GetCategoriesUseCase>(
-      () => _i791.GetCategoriesUseCase(gh<_i556.HomeRepository>()),
-    );
     gh.factory<_i1072.GetAllBrandsUseCase>(
       () => _i1072.GetAllBrandsUseCase(gh<_i556.HomeRepository>()),
+    );
+    gh.factory<_i791.GetCategoriesUseCase>(
+      () => _i791.GetCategoriesUseCase(gh<_i556.HomeRepository>()),
     );
     gh.factory<_i37.GetProductDetailsUseCase>(
       () => _i37.GetProductDetailsUseCase(gh<_i747.ProductDetailsRepository>()),

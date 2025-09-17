@@ -20,94 +20,117 @@ class CartScreen extends StatelessWidget {
       child: BlocConsumer<CartBloc, CartState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'Cart',
-                style: getMediumStyle(
-                  fontSize: 20,
-                  color: ColorManager.textColor,
-                ),
-              ),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: ImageIcon(
-                    AssetImage(IconsAssets.icSearch),
-                    color: ColorManager.primary,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: ImageIcon(
-                    AssetImage(IconsAssets.icCart),
-                    color: ColorManager.primary,
-                  ),
-                ),
-              ],
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(AppPadding.p14),
-              child: Column(
-                children: [
-                  Expanded(
-                    // the list of cart items ===============
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        final product = state
-                            .getCartResponseEntity
-                            ?.data
-                            ?.products?[index]
-                            .product;
-                        return CartItemWidget(
-                          imagePath: product?.imageCover ?? "",
-                          title: product?.title ?? "",
-                          price:
-                              state
-                                  .getCartResponseEntity
-                                  ?.data
-                                  ?.products?[index]
-                                  .price
-                                  ?.toInt() ??
-                              0,
-                          quantity:
-                              state
-                                  .getCartResponseEntity
-                                  ?.data
-                                  ?.products?[index]
-                                  .count
-                                  ?.toInt() ??
-                              0,
-                          onDeleteTap: () {},
-                          onDecrementTap: (value) {},
-                          onIncrementTap: (value) {},
-                          size: 40,
-                          color: Colors.black,
-                          colorName: 'Black',
-                          id: "",
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: AppSize.s12.h),
-                      itemCount:
-                          state.getCartResponseEntity?.data?.products?.length ??
-                          0,
+          return state.getCartRequestState == RequestState.loading
+              ? Container(
+                  color: ColorManager.white,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.primary,
                     ),
                   ),
-                  // the total price and checkout button========
-                  TotalPriceAndCheckoutBotton(
-                    totalPrice:
-                        state.getCartResponseEntity?.data?.totalCartPrice
-                            ?.toInt() ??
-                        0,
-                    checkoutButtonOnTap: () {},
+                )
+              : Scaffold(
+                  appBar: AppBar(
+                    title: Text(
+                      'Cart',
+                      style: getMediumStyle(
+                        fontSize: 20,
+                        color: ColorManager.textColor,
+                      ),
+                    ),
+                    centerTitle: true,
+                    actions: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: ImageIcon(
+                          AssetImage(IconsAssets.icSearch),
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          BlocProvider.of<CartBloc>(
+                            context,
+                          ).add(DeleteCartEvent());
+                        },
+                        icon: ImageIcon(
+                          AssetImage(IconsAssets.icDelete),
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 10.h),
-                ],
-              ),
-            ),
-          );
+                  body:
+                      (state.getCartResponseEntity?.data?.products == null ||
+                          state.getCartResponseEntity!.data!.products!.isEmpty)
+                      ? const Center(child: Text("No Products yet"))
+                      : Padding(
+                          padding: const EdgeInsets.all(AppPadding.p14),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                // the list of cart items ===============
+                                child: ListView.separated(
+                                  itemBuilder: (context, index) {
+                                    final product = state
+                                        .getCartResponseEntity
+                                        ?.data
+                                        ?.products?[index]
+                                        .product;
+                                    return CartItemWidget(
+                                      imagePath: product?.imageCover ?? "",
+                                      title: product?.title ?? "",
+                                      price:
+                                          state
+                                              .getCartResponseEntity
+                                              ?.data
+                                              ?.products?[index]
+                                              .price
+                                              ?.toInt() ??
+                                          0,
+                                      quantity:
+                                          state
+                                              .getCartResponseEntity
+                                              ?.data
+                                              ?.products?[index]
+                                              .count
+                                              ?.toInt() ??
+                                          0,
+                                      onDeleteTap: () {},
+                                      onDecrementTap: (value) {},
+                                      onIncrementTap: (value) {},
+                                      size: 40,
+                                      brandName: product?.brand?.name ?? "",
+                                      id: product?.id ?? "",
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(height: AppSize.s12.h),
+                                  itemCount:
+                                      state
+                                          .getCartResponseEntity
+                                          ?.data
+                                          ?.products
+                                          ?.length ??
+                                      0,
+                                ),
+                              ),
+                              // the total price and checkout button========
+                              TotalPriceAndCheckoutBotton(
+                                totalPrice:
+                                    state
+                                        .getCartResponseEntity
+                                        ?.data
+                                        ?.totalCartPrice
+                                        ?.toInt() ??
+                                    0,
+                                checkoutButtonOnTap: () {},
+                              ),
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
+                        ),
+                );
         },
       ),
     );

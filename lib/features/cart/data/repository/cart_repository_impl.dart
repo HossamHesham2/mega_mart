@@ -4,6 +4,7 @@ import 'package:ecommerce_c15_str/core/error/failures.dart';
 import 'package:ecommerce_c15_str/features/cart/data/data_source/cart_remote_ds.dart';
 import 'package:ecommerce_c15_str/features/cart/data/model/cart_request.dart';
 import 'package:ecommerce_c15_str/features/cart/data/model/cart_response_model.dart';
+import 'package:ecommerce_c15_str/features/cart/data/model/delete_cart_response_model.dart';
 import 'package:ecommerce_c15_str/features/cart/data/model/get_cart_response_model.dart';
 import 'package:ecommerce_c15_str/features/cart/domain/repository/cart_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -35,6 +36,18 @@ class CartRepositoryImpl extends CartRepository {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString(ConstantKey.tokenKey) ?? "";
       final result = await cartRemoteDs.getCart(token);
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(GeneralFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, DeleteCartResponseModel>> deleteCart() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString(ConstantKey.tokenKey) ?? "";
+      final result = await cartRemoteDs.deleteCart(token);
       return Right(result);
     } on Exception catch (e) {
       return Left(GeneralFailure(message: e.toString()));

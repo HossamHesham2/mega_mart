@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_c15_str/core/resources/assets_manager.dart';
 import 'package:ecommerce_c15_str/core/resources/color_manager.dart';
 import 'package:ecommerce_c15_str/core/resources/styles_manager.dart';
 import 'package:ecommerce_c15_str/core/resources/values_manager.dart';
 import 'package:ecommerce_c15_str/core/routes_manager/routes.dart';
 import 'package:ecommerce_c15_str/core/widget/product_counter.dart';
-import 'package:ecommerce_c15_str/features/cart/presentation/widgets/color_and_size_cart_item.dart';
+import 'package:ecommerce_c15_str/features/cart/presentation/widgets/brand_cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,8 +15,7 @@ class CartItemWidget extends StatelessWidget {
     required this.imagePath,
     required this.id,
     required this.title,
-    required this.color,
-    required this.colorName,
+    required this.brandName,
     required this.size,
     required this.price,
     required this.onDeleteTap,
@@ -27,8 +27,7 @@ class CartItemWidget extends StatelessWidget {
   final String imagePath;
   final String id;
   final String title;
-  final Color color;
-  final String colorName;
+  final String brandName;
   final int size;
   final int price;
   final void Function() onDeleteTap;
@@ -67,11 +66,14 @@ class CartItemWidget extends StatelessWidget {
                   color: ColorManager.primary.withValues(alpha: 0.3),
                 ),
               ),
-              child: Image.network(
-                imagePath,
+              child: CachedNetworkImage(
                 fit: BoxFit.cover,
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(color: ColorManager.primary),
+                ),
                 height: isPortrait ? height * 0.142 : height * 0.23,
                 width: isPortrait ? width * 0.29 : 165.w,
+                imageUrl: imagePath,
               ),
             ),
             // SizedBox(width: 8.w),
@@ -115,11 +117,7 @@ class CartItemWidget extends StatelessWidget {
                     // SizedBox(height: 7.h),
                     const Spacer(),
                     // display color and size===================
-                    ColorAndSizeCartItem(
-                      color: color,
-                      colorName: colorName,
-                      size: size,
-                    ),
+                    BrandCartItem(brandName: brandName),
                     const Spacer(),
                     // display price and quantity =================
                     Row(
