@@ -5,6 +5,7 @@ import 'package:ecommerce_c15_str/features/auth/sign_up/data/models/sign_up_requ
 import 'package:ecommerce_c15_str/features/auth/sign_up/data/models/sign_up_response_model.dart';
 import 'package:ecommerce_c15_str/features/cart/data/model/cart_request.dart';
 import 'package:ecommerce_c15_str/features/cart/data/model/cart_response_model.dart';
+import 'package:ecommerce_c15_str/features/cart/data/model/delete_cart_response_model.dart';
 import 'package:ecommerce_c15_str/features/cart/data/model/get_cart_response_model.dart';
 import 'package:ecommerce_c15_str/features/main_layout/categories/data/models/sub_categories_response_model.dart';
 import 'package:ecommerce_c15_str/features/main_layout/home/data/model/brands_response_model.dart';
@@ -54,6 +55,9 @@ abstract class CommerceClient {
 
   @GET('cart')
   Future<GetCartResponseModel> getCart(@Header('token') String token);
+
+  @DELETE('cart')
+  Future<DeleteCartResponseModel> deleteCart(@Header('token') String token);
 }
 
 @module

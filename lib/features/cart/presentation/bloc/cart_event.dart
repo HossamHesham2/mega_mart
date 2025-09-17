@@ -17,3 +17,8 @@ class GetCartEvent extends CartEvent {
   @override
   List<Object?> get props => [];
 }
+
+class DeleteCartEvent extends CartEvent {
+  @override
+  List<Object?> get props => [];
+}
