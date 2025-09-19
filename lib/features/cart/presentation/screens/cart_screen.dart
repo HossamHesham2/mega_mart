@@ -61,8 +61,8 @@ class CartScreen extends StatelessWidget {
                     ],
                   ),
                   body:
-                      (state.getCartResponseEntity?.data?.products == null ||
-                          state.getCartResponseEntity!.data!.products!.isEmpty)
+                      (state.getCartResponseModel?.data?.products == null ||
+                          state.getCartResponseModel!.data!.products!.isEmpty)
                       ? const Center(child: Text("No Products yet"))
                       : Padding(
                           padding: const EdgeInsets.all(AppPadding.p14),
@@ -73,7 +73,7 @@ class CartScreen extends StatelessWidget {
                                 child: ListView.separated(
                                   itemBuilder: (context, index) {
                                     final product = state
-                                        .getCartResponseEntity
+                                        .getCartResponseModel
                                         ?.data
                                         ?.products?[index]
                                         .product;
@@ -82,7 +82,7 @@ class CartScreen extends StatelessWidget {
                                       title: product?.title ?? "",
                                       price:
                                           state
-                                              .getCartResponseEntity
+                                              .getCartResponseModel
                                               ?.data
                                               ?.products?[index]
                                               .price
@@ -90,7 +90,7 @@ class CartScreen extends StatelessWidget {
                                           0,
                                       quantity:
                                           state
-                                              .getCartResponseEntity
+                                              .getCartResponseModel
                                               ?.data
                                               ?.products?[index]
                                               .count
@@ -108,7 +108,7 @@ class CartScreen extends StatelessWidget {
                                       SizedBox(height: AppSize.s12.h),
                                   itemCount:
                                       state
-                                          .getCartResponseEntity
+                                          .getCartResponseModel
                                           ?.data
                                           ?.products
                                           ?.length ??
@@ -119,7 +119,7 @@ class CartScreen extends StatelessWidget {
                               TotalPriceAndCheckoutBotton(
                                 totalPrice:
                                     state
-                                        .getCartResponseEntity
+                                        .getCartResponseModel
                                         ?.data
                                         ?.totalCartPrice
                                         ?.toInt() ??

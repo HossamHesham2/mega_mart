@@ -7,7 +7,7 @@ class CartState extends Equatable {
 
   final RequestState? getCartRequestState;
   final Failures? getCartFailures;
-  final GetCartResponseModel? getCartResponseEntity;
+  final GetCartResponseModel? getCartResponseModel;
 
   final RequestState? deleteCartRequestState;
   final Failures? deleteCartFailures;
@@ -17,7 +17,7 @@ class CartState extends Equatable {
     this.addToCartRequestState,
     this.addToCartResponseEntity,
     this.addToCartFailures,
-    this.getCartResponseEntity,
+    this.getCartResponseModel,
     this.getCartRequestState,
     this.getCartFailures,
     this.deleteCartRequestState,
@@ -31,7 +31,7 @@ class CartState extends Equatable {
       addToCartResponseEntity: null,
       addToCartFailures: null,
       getCartRequestState: RequestState.initial,
-      getCartResponseEntity: null,
+      getCartResponseModel: null,
       getCartFailures: null,
       deleteCartFailures: null,
       deleteCartRequestState: RequestState.initial,
@@ -40,9 +40,9 @@ class CartState extends Equatable {
   }
 
   CartState copyWith({
-    RequestState? cartRequestState,
-    Failures? cartFailures,
-    CartResponseEntity? cartResponseEntity,
+    RequestState? addToCartRequestState,
+    Failures? addToCartFailures,
+    CartResponseEntity? addToCartResponseEntity,
     RequestState? getCartRequestState,
     Failures? getCartFailures,
     GetCartResponseModel? getCartResponseModel,
@@ -51,17 +51,18 @@ class CartState extends Equatable {
     DeleteCartResponseModel? deleteCartResponseEntity,
   }) {
     return CartState(
-      addToCartRequestState: cartRequestState ?? addToCartRequestState,
-      addToCartFailures: cartFailures ?? addToCartFailures,
-      addToCartResponseEntity: cartResponseEntity ?? addToCartResponseEntity,
+      addToCartRequestState: addToCartRequestState ?? this.addToCartRequestState,
+      addToCartFailures: addToCartFailures ?? this.addToCartFailures,
+      addToCartResponseEntity:
+      addToCartResponseEntity ?? this.addToCartResponseEntity,
       getCartRequestState: getCartRequestState ?? this.getCartRequestState,
       getCartFailures: getCartFailures ?? this.getCartFailures,
-      getCartResponseEntity: getCartResponseModel ?? getCartResponseEntity,
+      getCartResponseModel: getCartResponseModel ?? this.getCartResponseModel,
       deleteCartRequestState:
-          deleteCartRequestState ?? this.deleteCartRequestState,
+      deleteCartRequestState ?? this.deleteCartRequestState,
       deleteCartFailures: deleteCartFailures ?? this.deleteCartFailures,
       deleteCartResponseEntity:
-          deleteCartResponseEntity ?? this.deleteCartResponseEntity,
+      deleteCartResponseEntity ?? this.deleteCartResponseEntity,
     );
   }
 
@@ -72,7 +73,7 @@ class CartState extends Equatable {
     addToCartFailures,
     getCartRequestState,
     getCartFailures,
-    getCartResponseEntity,
+    getCartResponseModel,
     deleteCartRequestState,
     deleteCartFailures,
     deleteCartResponseEntity,
