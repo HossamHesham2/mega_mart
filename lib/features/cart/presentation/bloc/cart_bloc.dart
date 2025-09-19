@@ -26,7 +26,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       switch (event) {
         case AddToCartEvent():
           {
-            emit(state.copyWith(cartRequestState: RequestState.loading));
+            emit(state.copyWith(addToCartRequestState: RequestState.loading));
 
             final result = await addToCartUseCas.call(
               CartRequest(productId: event.id),
@@ -35,18 +35,19 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               (l) {
                 return emit(
                   state.copyWith(
-                    cartRequestState: RequestState.error,
-                    cartFailures: l,
+                    addToCartRequestState: RequestState.error,
+                    addToCartFailures: l,
                   ),
                 );
               },
               (r) {
-                return emit(
+                emit(
                   state.copyWith(
-                    cartRequestState: RequestState.success,
-                    cartResponseEntity: r,
+                    addToCartRequestState: RequestState.success,
+                    addToCartResponseEntity: r,
                   ),
                 );
+                add(GetCartEvent());
               },
             );
           }
@@ -89,12 +90,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 );
               },
               (r) {
-                return emit(
+                emit(
                   state.copyWith(
                     deleteCartRequestState: RequestState.success,
                     deleteCartResponseEntity: r,
                   ),
                 );
+                add(GetCartEvent());
               },
             );
           }

@@ -4,7 +4,9 @@ import 'package:ecommerce_c15_str/core/resources/font_manager.dart';
 import 'package:ecommerce_c15_str/core/resources/styles_manager.dart';
 import 'package:ecommerce_c15_str/core/resources/values_manager.dart';
 import 'package:ecommerce_c15_str/core/routes_manager/routes.dart';
+import 'package:ecommerce_c15_str/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -39,7 +41,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       bottom: PreferredSize(
-        preferredSize:  Size(AppSize.s100.w, AppSize.s60.h),
+        preferredSize: Size(AppSize.s100.w, AppSize.s60.h),
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p8),
           child: Row(
@@ -103,12 +105,35 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () => Navigator.pushNamed(context, Routes.cartRoute),
-                icon: ImageIcon(
-                  AssetImage(IconsAssets.icCart),
-                  color: ColorManager.primary,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return Badge(
+                    label: state.getCartRequestState == RequestState.loading
+                        ? Center(
+                            child: SizedBox(
+                              height: 5.h,
+                              width: 5.w,
+                              child: CircularProgressIndicator(
+                                color: ColorManager.white,
+                                strokeWidth: 2.w,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            state.getCartResponseModel?.numOfCartItems
+                                    .toString() ??
+                                "0",
+                          ),
+                    child: IconButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, Routes.cartRoute),
+                      icon: ImageIcon(
+                        AssetImage(IconsAssets.icCart),
+                        color: ColorManager.primary,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
